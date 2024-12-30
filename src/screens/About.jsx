@@ -2,7 +2,7 @@ import { Container, Typography, Box, Paper } from '@mui/material';
 
 const About = () => {
     return (
-        <Container maxWidth="md">
+        <Container color="primary" maxWidth="lg" sx={{ mt: 10 }}>
             <Box my={4}>
                 <Paper elevation={3} style={{ padding: '20px' }}>
                     <Typography variant="h4" component="h1" gutterBottom>
