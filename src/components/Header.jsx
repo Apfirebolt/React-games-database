@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 
 const Header = () => {
     return (
-        <AppBar backgroundColor="dark" position="static">
+        <AppBar background="dark" position="static">
             <Toolbar>
                 <IconButton edge="start" color="inherit" aria-label="menu">
                     <MenuIcon />
