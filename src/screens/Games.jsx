@@ -137,6 +137,11 @@ const Games = () => {
       </Grid>
       {loading && <Loader />}
       <Grid container spacing={4} sx={{ mt: 2, mb: 2 }}>
+        {games.results && games.results.length === 0 ? (
+          <Typography variant="h6" component="div" sx={{ mt: 2, mb: 2 }} style={{ textAlign: "center" }}>
+            No games available
+          </Typography>
+        ) : null}
         {games &&
           games.results &&
           games.results.map((game) => (
@@ -212,20 +217,20 @@ const Games = () => {
                   >
                     Release Date: {game.release_date}
                   </Typography>
-                  <Button onClick={() => handleOpen(game)}>Open modal</Button>
+                  <Button onClick={() => handleOpen(game)}>Full Image</Button>
                 </CardContent>
               </Card>
             </Grid>
           ))}
       </Grid>
-      {games && games.count && (
+      {games && games.count ? (
         <Pagination
           count={Math.ceil(games.count / 50)}
           page={page}
           onChange={handlePageChange}
           sx={{ mt: 4 }}
         />
-      )}
+      ): null}
       <Modal
         open={open}
         onClose={handleClose}
@@ -233,13 +238,18 @@ const Games = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2" style={{textAlign: 'center', marginBottom: '20px'}}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            style={{ textAlign: "center", marginBottom: "20px" }}
+          >
             Image {selectedGame.title ? `of ${selectedGame.title}` : "Nothing"}
           </Typography>
           <CardMedia
             component="img"
-            height="350"
-            width="400"
+            height="450"
+            width="650"
             image={`https://www.vgchartz.com/${selectedGame.img}`}
             alt={selectedGame.title}
           />
