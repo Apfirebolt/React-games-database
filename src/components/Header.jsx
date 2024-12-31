@@ -13,7 +13,7 @@ const Header = () => {
                 <IconButton edge="start" color="inherit" aria-label="menu">
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" sx={{ flexGrow: 1, color: 'white' }}>
+                <Typography variant="h6" sx={{ flexGrow: 1, color: 'white', backgroundColor: 'dark' }}>
                     React Games Database
                 </Typography>
                 <Button sx={{ color: 'white' }} component={Link} to="/">Home</Button>

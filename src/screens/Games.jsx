@@ -9,6 +9,7 @@ import {
   Grid,
   Pagination,
   TextField,
+  MenuItem, Select, FormControl, InputLabel
 } from "@mui/material";
 import Loader from "../components/Loader";
 
@@ -18,20 +19,29 @@ const Games = () => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(0);
   const [searchText, setSearchText] = useState("");
+  const [sortOrder, setSortOrder] = useState("desc");
 
-  useEffect(() => {
+  const handleSortChange = (event) => {
+    setSortOrder(event.target.value);
     setLoading(true);
-    axios.get(`https://softgenie.org/api/games`).then((response) => {
-      if (response.data) {
-        setLoading(false);
-        setGames(response.data);
-      }
-    });
-  }, []);
+    let sortBy = '';
+    if (event.target.value === 'desc') {
+      sortBy = '-title';
+    } else {
+      sortBy = 'title';
+    }
+    axios
+      .get(`https://softgenie.org/api/games?search=${searchText}&ordering=${sortBy}`)
+      .then((response) => {
+        if (response.data) {
+          setLoading(false);
+          setGames(response.data);
+        }
+      });
+  };
 
   const handlePageChange = async (event, value) => {
     // call the api with offset 50 query params
-    console.log("Value is ", value);
     setLoading(true);
     setPage(value);
     if (value === 1) {
@@ -76,14 +86,32 @@ const Games = () => {
       >
         Games Database
       </Typography>
-      <TextField
-        variant="outlined"
-        fullWidth
-        placeholder="Search games..."
-        value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
-        sx={{ mb: 2 }}
-      />
+      <Grid container spacing={2} sx={{ mb: 2 }}>
+        <Grid item xs={8}>
+          <TextField
+            variant="outlined"
+            fullWidth
+            placeholder="Search games..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <FormControl fullWidth>
+            <InputLabel id="sort-order-label">Sort Order</InputLabel>
+            <Select
+              labelId="sort-order-label"
+              id="sort-order"
+              value={sortOrder}
+              label="Sort Order"
+              onChange={handleSortChange}
+            >
+              <MenuItem value="desc">Descending</MenuItem>
+              <MenuItem value="asc">Ascending</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
       {loading && <Loader />}
       <Grid container spacing={4} sx={{ mt: 2, mb: 2 }}>
         {games &&
