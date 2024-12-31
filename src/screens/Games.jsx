@@ -9,29 +9,57 @@ import {
   Grid,
   Pagination,
   TextField,
-  MenuItem, Select, FormControl, InputLabel
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+  Modal,
+  Button,
+  Box,
 } from "@mui/material";
+
 import Loader from "../components/Loader";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const Games = () => {
   const [games, setGames] = useState({});
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(0);
   const [searchText, setSearchText] = useState("");
   const [sortOrder, setSortOrder] = useState("desc");
+  const [open, setOpen] = useState(false);
+  const [selectedGame, setSelectedGame] = useState({});
+
+  const handleOpen = (game) => {
+    setSelectedGame(game);
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
 
   const handleSortChange = (event) => {
     setSortOrder(event.target.value);
     setLoading(true);
-    let sortBy = '';
-    if (event.target.value === 'desc') {
-      sortBy = '-title';
+    let sortBy = "";
+    if (event.target.value === "desc") {
+      sortBy = "-title";
     } else {
-      sortBy = 'title';
+      sortBy = "title";
     }
     axios
-      .get(`https://softgenie.org/api/games?search=${searchText}&ordering=${sortBy}`)
+      .get(
+        `https://softgenie.org/api/games?search=${searchText}&ordering=${sortBy}`
+      )
       .then((response) => {
         if (response.data) {
           setLoading(false);
@@ -44,13 +72,8 @@ const Games = () => {
     // call the api with offset 50 query params
     setLoading(true);
     setPage(value);
-    if (value === 1) {
-      setPageSize(0);
-    } else {
-      setPageSize((value - 1) * 50);
-    }
     await axios
-      .get(`https://softgenie.org/api/games?&offset=${pageSize}`)
+      .get(`https://softgenie.org/api/games?&page=${value}`)
       .then((response) => {
         if (response.data) {
           setLoading(false);
@@ -189,6 +212,7 @@ const Games = () => {
                   >
                     Release Date: {game.release_date}
                   </Typography>
+                  <Button onClick={() => handleOpen(game)}>Open modal</Button>
                 </CardContent>
               </Card>
             </Grid>
@@ -202,6 +226,25 @@ const Games = () => {
           sx={{ mt: 4 }}
         />
       )}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2" style={{textAlign: 'center', marginBottom: '20px'}}>
+            Image {selectedGame.title ? `of ${selectedGame.title}` : "Nothing"}
+          </Typography>
+          <CardMedia
+            component="img"
+            height="350"
+            width="400"
+            image={`https://www.vgchartz.com/${selectedGame.img}`}
+            alt={selectedGame.title}
+          />
+        </Box>
+      </Modal>
     </Container>
   );
 };

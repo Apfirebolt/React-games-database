@@ -68,6 +68,10 @@ This is the games list page
 
 ![Screenshot](/screenshots/1.jpeg)
 
+Screenshot of the image modal
+
+![Screenshot](/screenshots/2.jpeg)
+
 ## Project Structure
 
 After creating the project, your directory structure should look like this:
