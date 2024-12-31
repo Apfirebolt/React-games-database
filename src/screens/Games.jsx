@@ -9,27 +9,37 @@ import {
   Grid,
   Pagination,
 } from "@mui/material";
+import Loader from "../components/Loader";
 
 const Games = () => {
   const [games, setGames] = useState({});
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [pageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(50);
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://softgenie.org/api/games?page=${page}&pageSize=${pageSize}`)
+      .get(`https://softgenie.org/api/games`)
       .then((response) => {
         if (response.data) {
           setLoading(false);
           setGames(response.data);
         }
       });
-  }, [page, pageSize]);
+  }, []);
 
   const handlePageChange = (event, value) => {
+    // call the api with offset 50 query params
+    setLoading(true);
     setPage(value);
+    setPageSize((value - 1) * 50);
+    axios.get(`https://softgenie.org/api/games?&offset=${pageSize}`).then((response) => {
+      if (response.data) {
+        setLoading(false);
+        setGames(response.data);
+      }
+    })
   };
 
   return (
@@ -42,7 +52,7 @@ const Games = () => {
       >
         Games Database
       </Typography>
-      {loading && <p>Loading games...</p>}
+      {loading && <Loader />}
       <Grid container spacing={4} sx={{ mt: 2, mb: 2 }}>
         {games &&
           games.results &&
@@ -126,7 +136,7 @@ const Games = () => {
       </Grid>
       {games && games.count && (
         <Pagination
-          count={games.count}
+          count={Math.ceil(games.count / 50)}
           page={page}
           onChange={handlePageChange}
           sx={{ mt: 4 }}

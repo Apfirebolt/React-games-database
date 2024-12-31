@@ -1,9 +1,19 @@
+import { Container, Typography, Box, Paper } from '@mui/material';
+
 const Home = () => {
     return (
-        <div>
-            <h1>Welcome to the Games Database</h1>
-            <p>Explore a wide variety of games and find your next favorite!</p>
-        </div>
+        <Container color="primary" maxWidth="lg" sx={{ mt: 10 }}>
+            <Box my={4}>
+                <Paper elevation={3} style={{ padding: '20px' }}>
+                    <Typography variant="h4" component="h1" gutterBottom>
+                        Home
+                    </Typography>
+                    <Typography variant="body1">
+                        Welcome to our games database! We are dedicated to providing you with the most comprehensive and up-to-date information on all your favorite games.
+                    </Typography>
+                </Paper>
+            </Box>
+        </Container>
     );
 };
 
