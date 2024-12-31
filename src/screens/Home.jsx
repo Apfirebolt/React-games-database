@@ -2,8 +2,8 @@ import { Container, Typography, Box, Paper } from '@mui/material';
 
 const Home = () => {
     return (
-        <Container color="primary" maxWidth="lg" sx={{ mt: 10 }}>
-            <Box my={4}>
+        <Container color="primary" maxWidth="lg" sx={{ mt: 2 }} background="secondary">
+            <Box my={4} background="secondary">
                 <Paper elevation={3} style={{ padding: '20px' }}>
                     <Typography variant="h4" component="h1" gutterBottom>
                         Home

@@ -8,17 +8,17 @@ import Button from '@mui/material/Button';
 
 const Header = () => {
     return (
-        <AppBar>
+        <AppBar backgroundColor="dark" position="static">
             <Toolbar>
                 <IconButton edge="start" color="inherit" aria-label="menu">
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" style={{ flexGrow: 1 }}>
+                <Typography variant="h6" sx={{ flexGrow: 1, color: 'white' }}>
                     React Games Database
                 </Typography>
-                <Button color="inherit" component={Link} to="/">Home</Button>
-                <Button color="inherit" component={Link} to="/games">Games</Button>
-                <Button color="inherit" component={Link} to="/about">About</Button>
+                <Button sx={{ color: 'white' }} component={Link} to="/">Home</Button>
+                <Button sx={{ color: 'white' }} component={Link} to="/games">Games</Button>
+                <Button sx={{ color: 'white' }} component={Link} to="/about">About</Button>
             </Toolbar>
         </AppBar>
     );

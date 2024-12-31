@@ -43,7 +43,7 @@ const Games = () => {
   };
 
   return (
-    <Container color="primary" maxWidth="lg" sx={{ mt: 10, mb: 5 }}>
+    <Container color="primary" maxWidth="lg" sx={{ mb: 5 }}>
       <Typography
         variant="h4"
         component="h1"
@@ -58,7 +58,7 @@ const Games = () => {
           games.results &&
           games.results.map((game) => (
             <Grid item xs={12} sm={6} md={4} key={game.id}>
-              <Card sx={{ backgroundColor: "#f5f5f5", mb: 3 }}>
+              <Card sx={{ mb: 3 }} backgroundColor="secondary">
                 <CardMedia
                   component="img"
                   height="140"
