@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import axios from "axios";
 import {
   Container,
@@ -82,6 +83,14 @@ const Games = () => {
       });
   };
 
+  const el = useRef(null);
+  const inputBox = useRef(null);
+
+  useEffect(() => {
+    gsap.fromTo(el.current, { x: -100, opacity: 0 }, { x: 0, opacity: 1, duration: 1 });
+    gsap.fromTo(inputBox.current, { y: -100, opacity: 0 }, { y: 0, opacity: 1, duration: 1 });
+  }, []);
+
   // debounce search here
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -102,6 +111,7 @@ const Games = () => {
   return (
     <Container color="primary" maxWidth="lg" sx={{ mb: 5 }}>
       <Typography
+        ref={el}
         variant="h4"
         component="h1"
         gutterBottom
@@ -109,7 +119,7 @@ const Games = () => {
       >
         Games Database
       </Typography>
-      <Grid container spacing={2} sx={{ mb: 2 }}>
+      <Grid container ref={inputBox} spacing={2} sx={{ mb: 2 }}>
         <Grid item xs={8}>
           <TextField
             variant="outlined"
@@ -138,7 +148,12 @@ const Games = () => {
       {loading && <Loader />}
       <Grid container spacing={4} sx={{ mt: 2, mb: 2 }}>
         {games.results && games.results.length === 0 ? (
-          <Typography variant="h6" component="div" sx={{ mt: 2, mb: 2 }} style={{ textAlign: "center" }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ mt: 2, mb: 2 }}
+            style={{ textAlign: "center" }}
+          >
             No games available
           </Typography>
         ) : null}
@@ -230,7 +245,7 @@ const Games = () => {
           onChange={handlePageChange}
           sx={{ mt: 4 }}
         />
-      ): null}
+      ) : null}
       <Modal
         open={open}
         onClose={handleClose}
