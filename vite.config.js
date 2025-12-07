@@ -6,5 +6,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000
-  }
+  },
+  test: {
+    // 1. Use jsdom for component rendering
+    environment: 'jsdom',
+    setupFiles: './vitest.setup.js',
+    globals: true,
+  },
 })
