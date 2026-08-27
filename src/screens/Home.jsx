@@ -16,31 +16,27 @@ import {
 import SportsEsportsRoundedIcon from "@mui/icons-material/SportsEsportsRounded";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
-import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
 import StorageRoundedIcon from "@mui/icons-material/StorageRounded";
-
-const STATS = [
-  { label: "Tracked Titles", value: "60K+", icon: <SportsEsportsRoundedIcon sx={{ color: "#38bdf8" }} /> },
-  { label: "Critic Reviews", value: "Verified", icon: <StarRoundedIcon sx={{ color: "#facc15" }} /> },
-  { label: "Global Sales", value: "Real-time", icon: <TrendingUpRoundedIcon sx={{ color: "#4ade80" }} /> },
-];
 
 const FEATURES = [
   {
     icon: <SportsEsportsRoundedIcon sx={{ color: "#38bdf8", fontSize: 28 }} />,
     title: "Comprehensive Archive",
-    description: "Search, filter, and inspect detailed records across PlayStation, Xbox, Nintendo, and PC classics.",
+    description:
+      "Search, filter, and inspect detailed records across PlayStation, Xbox, Nintendo, and PC classics.",
   },
   {
     icon: <TrendingUpRoundedIcon sx={{ color: "#4ade80", fontSize: 28 }} />,
     title: "Market Sales Analytics",
-    description: "Access verified multi-region unit sales and tracking data sourced directly from industry charts.",
+    description:
+      "Access verified multi-region unit sales and tracking data sourced directly from industry charts.",
   },
   {
     icon: <StorageRoundedIcon sx={{ color: "#a855f7", fontSize: 28 }} />,
     title: "Live Database Sync",
-    description: "Instantaneous debounced search queries, multi-sort ordering, and paginated game artwork discovery.",
+    description:
+      "Instantaneous debounced search queries, multi-sort ordering, and paginated game artwork discovery.",
   },
 ];
 
@@ -52,7 +48,7 @@ const Home = () => {
       gsap.fromTo(
         ".gsap-hero",
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.7, stagger: 0.15, ease: "power2.out" }
+        { opacity: 1, y: 0, duration: 0.7, stagger: 0.15, ease: "power2.out" },
       );
     }, containerRef);
 
@@ -72,7 +68,11 @@ const Home = () => {
       >
         <Chip
           className="gsap-hero"
-          icon={<AutoAwesomeRoundedIcon sx={{ fontSize: 16, color: "#38bdf8 !important" }} />}
+          icon={
+            <AutoAwesomeRoundedIcon
+              sx={{ fontSize: 16, color: "#38bdf8 !important" }}
+            />
+          }
           label="Next-Gen Video Game Explorer"
           sx={{
             mb: 3,
@@ -117,7 +117,8 @@ const Home = () => {
             mx: "auto",
           }}
         >
-          Explore a rich catalog of game records, critic ratings, sales figures, and publisher credits across generations in one streamlined dashboard.
+          Explore a rich catalog of game records, critic ratings, sales figures,
+          and publisher credits across generations in one streamlined dashboard.
         </Typography>
 
         {/* Action Buttons */}
@@ -178,40 +179,17 @@ const Home = () => {
         </Stack>
       </Box>
 
-      {/* Metrics Bar */}
-      <Grid container spacing={3} sx={{ mb: 8 }}>
-        {STATS.map((stat) => (
-          <Grid item xs={12} sm={4} key={stat.label} className="gsap-hero">
-            <Paper
-              elevation={0}
-              sx={{
-                p: 3,
-                textAlign: "center",
-                bgcolor: "#0f172a",
-                borderRadius: 3,
-                border: "1px solid rgba(255, 255, 255, 0.06)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 0.5,
-              }}
-            >
-              <Box sx={{ mb: 0.5 }}>{stat.icon}</Box>
-              <Typography variant="h4" sx={{ fontWeight: 800, color: "#f8fafc" }}>
-                {stat.value}
-              </Typography>
-              <Typography variant="body2" sx={{ color: "#64748b", fontWeight: 500 }}>
-                {stat.label}
-              </Typography>
-            </Paper>
-          </Grid>
-        ))}
-      </Grid>
-
       {/* Feature Cards Grid */}
-      <Grid container spacing={3}>
+      <Grid container spacing={3} sx={{ width: "100%", m: 0 }}>
         {FEATURES.map((feature) => (
-          <Grid item xs={12} md={4} key={feature.title} className="gsap-hero">
+          <Grid
+            item
+            xs={12}
+            md={4}
+            key={feature.title}
+            className="gsap-hero"
+            sx={{ pl: { xs: "0 !important", sm: "24px !important" }, pt: { xs: "16px !important", sm: "24px !important" } }}
+          >
             <Paper
               elevation={0}
               sx={{
@@ -245,10 +223,16 @@ const Home = () => {
               >
                 {feature.icon}
               </Box>
-              <Typography variant="h6" sx={{ color: "#f8fafc", fontWeight: 700 }}>
+              <Typography
+                variant="h6"
+                sx={{ color: "#f8fafc", fontWeight: 700 }}
+              >
                 {feature.title}
               </Typography>
-              <Typography variant="body2" sx={{ color: "#94a3b8", lineHeight: 1.6 }}>
+              <Typography
+                variant="body2"
+                sx={{ color: "#94a3b8", lineHeight: 1.6 }}
+              >
                 {feature.description}
               </Typography>
             </Paper>

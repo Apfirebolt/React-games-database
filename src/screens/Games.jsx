@@ -49,15 +49,13 @@ const Games = () => {
   const controlsRef = useRef(null);
 
   // Consolidated Fetch Function
-  const fetchGames = useCallback(async (currentPage, search, sort) => {
+  const fetchGames = useCallback(async (currentPage, search) => {
     setLoading(true);
-    const sortBy = sort === "desc" ? "-title" : "title";
     try {
       const response = await axios.get("https://softgenie.org/api/games", {
         params: {
           page: currentPage,
           search: search || undefined,
-          ordering: sortBy,
         },
       });
       if (response.data) {
@@ -90,11 +88,11 @@ const Games = () => {
   // Unified Debounced Fetch Effect
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
-      fetchGames(page, searchText, sortOrder);
+      fetchGames(page, searchText);
     }, 350);
 
     return () => clearTimeout(delayDebounce);
-  }, [page, searchText, sortOrder, fetchGames]);
+  }, [page, searchText, fetchGames]);
 
   const handleOpen = (game) => {
     setSelectedGame(game);
